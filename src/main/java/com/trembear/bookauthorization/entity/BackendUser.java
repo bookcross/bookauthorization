@@ -1,4 +1,4 @@
-package com.trembear.bookauthorization;
+package com.trembear.bookauthorization.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

@@ -1,6 +1,9 @@
 package com.trembear.bookauthorization.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trembear.bookauthorization.base.BaseRest;
+import com.trembear.bookauthorization.vo.RestFulVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,7 @@ public class AdminAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         successHandlerlogger.info("{}登录成功",authentication.getName());
         String tokenValue = oAuth2AccessToken.getValue();
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(tokenValue);
+        RestFulVO restFulVO=new BaseRest().restSuccess(tokenValue);
+        response.getWriter().write(JSON.toJSONString(restFulVO));
     }
 }

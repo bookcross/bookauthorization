@@ -1,4 +1,4 @@
-package com.trembear.bookauthorization;
+package com.trembear.bookauthorization.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;

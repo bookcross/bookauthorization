@@ -1,6 +1,7 @@
-package com.trembear.bookauthorization;
+package com.trembear.bookauthorization.service;
 
 
+import com.trembear.bookauthorization.entity.BackendUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +25,11 @@ public class BackendUserService implements UserDetailsService {
             backendUser.setPassword("123");
             return backendUser;
         }
-        return null;
+        if(username.equals("john")){
+            backendUser.setUsername(username);
+            backendUser.setPassword("1234");
+            return backendUser;
+        }
+        return null ;
     }
 }
