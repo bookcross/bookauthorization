@@ -1,7 +1,13 @@
 package com.trembear.bookauthorization.service;
 
 
-import com.trembear.bookauthorization.entity.BackendUser;
+import com.trembear.bookauthorization.dao.BCUserMapper;
+import com.trembear.bookauthorization.entity.BCUser;
+import com.trembear.bookauthorization.entity.BCUserExample;
+import com.trembear.bookauthorization.vo.RestFulVO;
+import com.trembear.bookauthorizationapi.dto.UserDto;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,20 +22,27 @@ import org.springframework.stereotype.Service;
  */
 @Service("backendUserService")
 public class BackendUserService implements UserDetailsService {
+    @Autowired
+    BCUserMapper bcUserMapper;
+    public RestFulVO register(UserDto userDto){
+        BCUser bcUser=new BCUser();
+        BeanUtils.copyProperties(userDto,bcUser);
+        bcUserMapper.insert(bcUser);
+        return new RestFulVO();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        BackendUser backendUser = new BackendUser();
-        if(username.equals("tom")){
-            backendUser.setUsername(username);
-            backendUser.setPassword("123");
-            return backendUser;
+        System.out.println(username);
+        BCUser backendUser = new BCUser();
+        BCUserExample bcUserExample=new BCUserExample();
+        BCUserExample.Criteria criteria=bcUserExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        try {
+            backendUser=bcUserMapper.selectByExample(bcUserExample).get(0);
+        }catch(Exception e){
+//            return null;
         }
-        if(username.equals("john")){
-            backendUser.setUsername(username);
-            backendUser.setPassword("1234");
-            return backendUser;
-        }
-        return null ;
+        return backendUser;
     }
 }
