@@ -6,11 +6,12 @@ import com.trembear.bookauthorization.base.BaseRest;
 import com.trembear.bookauthorization.entity.BCUser;
 import com.trembear.bookauthorization.vo.RestFulVO;
 import com.trembear.bookauthorizationapi.dto.UserDto;
-import com.trembear.bookauthorizationapi.util.ThreadLocalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -36,6 +37,12 @@ import java.io.IOException;
 @Component("adminAuthenticationSuccessHandler")
 public class AdminAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     Logger successHandlerlogger = LoggerFactory.getLogger(AdminAuthenticationSuccessHandler.class);
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -57,6 +64,7 @@ public class AdminAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
 //        ThreadLocalUtils.set(userDto);
 //        ThreadLocalUtils.get();
         String tokenValue = oAuth2AccessToken.getValue();
+        redisTemplate.opsForValue().set(tokenValue,JSON.toJSONString(userDto));
         response.setContentType("application/json;charset=UTF-8");
         RestFulVO restFulVO=new BaseRest().restSuccess(tokenValue);
         response.getWriter().write(JSON.toJSONString(restFulVO));

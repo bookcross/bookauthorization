@@ -1,5 +1,6 @@
 package com.trembear.bookauthorizationapi.dto;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  * @author Junwei.Xiong
  * since 2018-12-12 11:10
  */
-public class UserDto {
+public class UserDto implements Serializable {
     private Integer userid;
 
     private String username;
