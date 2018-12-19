@@ -5,7 +5,7 @@ import com.trembear.bookauthorization.dao.BCUserMapper;
 import com.trembear.bookauthorization.entity.BCUser;
 import com.trembear.bookauthorization.entity.BCUserExample;
 import com.trembear.bookauthorization.vo.RestFulVO;
-import com.trembear.bookauthorizationapi.dto.UserDto;
+import com.trembear.bookauth.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

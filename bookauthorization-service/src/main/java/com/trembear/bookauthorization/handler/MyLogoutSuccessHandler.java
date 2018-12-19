@@ -34,6 +34,5 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
         System.out.println(authentication);
         String token=httpServletRequest.getHeader("Authorization").split("Bearer ")[1];
         consumerTokenServices.revokeToken(token);
-
     }
 }

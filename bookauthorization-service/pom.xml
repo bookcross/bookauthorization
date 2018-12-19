@@ -17,8 +17,8 @@
         <!--</dependency>-->
         <dependency>
             <groupId>com.trembear</groupId>
-            <artifactId>bookauthorization-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>authorization-api</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

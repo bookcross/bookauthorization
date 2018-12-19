@@ -1,8 +1,5 @@
-package com.trembear.bookauthorizationapi.dto;
-
+package com.trembear.authorizationapi.dto;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 
 /**
  * description
@@ -101,4 +98,5 @@ public class UserDto implements Serializable {
         this.isused = isused;
     }
 }
+
 

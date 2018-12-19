@@ -1,7 +1,7 @@
 package com.trembear.bookauthorization.filter;
 
 import com.trembear.bookauthorization.utils.CookieUtils;
-import com.trembear.bookauthorizationapi.dto.UserDto;
+import com.trembear.bookauth.dto.UserDto;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.Filter;

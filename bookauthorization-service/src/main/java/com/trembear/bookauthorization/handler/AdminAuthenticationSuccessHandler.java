@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trembear.bookauthorization.base.BaseRest;
 import com.trembear.bookauthorization.entity.BCUser;
 import com.trembear.bookauthorization.vo.RestFulVO;
-import com.trembear.bookauthorizationapi.dto.UserDto;
+import com.trembear.bookauth.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Junwei.Xiong
@@ -61,10 +62,8 @@ public class AdminAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         UserDto userDto=new UserDto();
         BeanUtils.copyProperties(user,userDto);
         successHandlerlogger.info("{}登录成功",userDto.getUsername());
-//        ThreadLocalUtils.set(userDto);
-//        ThreadLocalUtils.get();
         String tokenValue = oAuth2AccessToken.getValue();
-        redisTemplate.opsForValue().set(tokenValue,JSON.toJSONString(userDto));
+        redisTemplate.opsForValue().set(tokenValue, JSON.toJSONString(userDto),3,TimeUnit.DAYS);
         response.setContentType("application/json;charset=UTF-8");
         RestFulVO restFulVO=new BaseRest().restSuccess(tokenValue);
         response.getWriter().write(JSON.toJSONString(restFulVO));
