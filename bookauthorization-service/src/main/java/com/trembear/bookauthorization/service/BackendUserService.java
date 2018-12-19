@@ -1,17 +1,19 @@
 package com.trembear.bookauthorization.service;
 
 
+import com.trembear.authorizationapi.dto.UserDto;
 import com.trembear.bookauthorization.dao.BCUserMapper;
 import com.trembear.bookauthorization.entity.BCUser;
 import com.trembear.bookauthorization.entity.BCUserExample;
 import com.trembear.bookauthorization.vo.RestFulVO;
-import com.trembear.bookauth.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 创建者 wei.wang
@@ -44,5 +46,21 @@ public class BackendUserService implements UserDetailsService {
 //            return null;
         }
         return backendUser;
+    }
+    public int updateUser(UserDto userDto){
+        BCUser bcUser=new BCUser();
+        BeanUtils.copyProperties(userDto,bcUser);
+        int a=bcUserMapper.updateByPrimaryKeySelective(bcUser);
+        return a;
+    }
+    public boolean judgeSameUsername(String username){
+        BCUserExample bcUserExample=new BCUserExample();
+        BCUserExample.Criteria criteria = bcUserExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<BCUser> i=bcUserMapper.selectByExample(bcUserExample);
+        if(i.size()>0){
+            return false;
+        }
+        else {return true;}
     }
 }

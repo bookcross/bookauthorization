@@ -2,10 +2,10 @@ package com.trembear.bookauthorization.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trembear.authorizationapi.dto.UserDto;
 import com.trembear.bookauthorization.base.BaseRest;
 import com.trembear.bookauthorization.entity.BCUser;
 import com.trembear.bookauthorization.vo.RestFulVO;
-import com.trembear.bookauth.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
